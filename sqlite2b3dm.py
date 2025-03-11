@@ -39,8 +39,12 @@ class SQLiteDumper:
         
         
 def dump_model(db_dir, save_dir='output'):
-    # 连接到数据库（若不存在则创建）
-    conn = sqlite3.connect(db_dir + '/index.db')
+    db_path = db_dir + '/index.db'
+    if os.path.isfile(db_path):
+        conn = sqlite3.connect(db_path)
+    else:
+        print("Warning: 数据库 ", db_path, " 不存在。")
+        return
     # 2. 定义 SQL 查询
     query = "SELECT * FROM indexT"
 
